@@ -1,28 +1,39 @@
-import { useState } from 'react'
+import { useState } from "react";
+import Header from "./components/Header";
+import ToolTabs from "./components/ToolTabs";
+import CsvJsonTool from "./components/CsvJsonTool";
+import LogAnalyzer from "./components/LogAnalyzer";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [active, setActive] = useState("csvjson");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-indigo-50">
+      <Header />
+
+      <main className="max-w-6xl mx-auto px-4 pb-16">
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-1">
+            <div className="rounded-2xl border bg-white p-4 shadow-sm">
+              <h2 className="text-sm font-semibold text-gray-900 mb-3">Tools</h2>
+              <ToolTabs value={active} onChange={setActive} />
+            </div>
+          </div>
+
+          <div className="lg:col-span-2">
+            <div className="rounded-2xl border bg-white p-4 shadow-sm">
+              {active === "csvjson" && <CsvJsonTool />}
+              {active === "loganalyzer" && <LogAnalyzer />}
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-6 text-center text-xs text-gray-500">
+          Built for quick, private, in-browser conversions. No data leaves your device.
+        </section>
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
